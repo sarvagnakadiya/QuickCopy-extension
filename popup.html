@@ -7,10 +7,17 @@
   </head>
   <body>
     <div class="container">
-      <ul id="textList"></ul>
-      <button id="navigateToAddPage">Add New Text</button>
+      <ul id="textList">
+        <!-- Loading state will be replaced by JavaScript -->
+        <li class="loading">Loading...</li>
+      </ul>
+      <button id="navigateToAddPage">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right: 8px; vertical-align: middle;">
+          <path d="M8 4V12M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Add New Text
+      </button>
     </div>
-
     <script src="popup.js"></script>
   </body>
 </html>

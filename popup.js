@@ -16,6 +16,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTextList() {
     const fragment = document.createDocumentFragment(); // Use DocumentFragment to minimize reflows
 
+    if (order.length === 0) {
+      const emptyState = document.createElement('li');
+      emptyState.className = 'empty-state';
+      emptyState.innerHTML = `
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" style="margin-bottom: 16px;">
+          <path d="M4 6H20M4 12H20M4 18H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <p>No saved texts yet</p>
+      `;
+      textList.appendChild(emptyState);
+      return;
+    }
+
     order.forEach((key) => {
       if (texts[key]) {
         const value = texts[key];

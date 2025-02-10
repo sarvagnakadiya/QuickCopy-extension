@@ -3,15 +3,25 @@
   <head>
     <title>Add New Text</title>
     <link rel="stylesheet" href="addText.css" />
+    <meta charset="UTF-8" />
   </head>
   <body>
     <div class="container">
       <h2>Add New Text</h2>
-      <input type="text" id="keyInput" placeholder="Key" />
-      <input type="text" id="valueInput" placeholder="Text" />
-      <button id="addButton">Add Text</button>
+      <input 
+        type="text" 
+        id="keyInput" 
+        placeholder="Enter a label for your text" 
+        autocomplete="off"
+      />
+      <input 
+        type="text" 
+        id="valueInput" 
+        placeholder="Enter the text to save" 
+        autocomplete="off"
+      />
+      <button id="addButton">Save Text</button>
     </div>
-
     <script src="addText.js"></script>
   </body>
 </html>
