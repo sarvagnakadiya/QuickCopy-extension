@@ -33,9 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const li = document.createElement("li");
     li.classList.add("draggable");
     li.setAttribute("draggable", true);
+    // Get the actual text value from the object structure
+    const textValue = value.value || value; // Handle both old and new format
     li.innerHTML = `
         <div class="textItem">
-          <span class="textKey" data-value="${value}">${key}</span>
+          <span class="textKey" data-value="${textValue}">${key}</span>
           <button class="deleteButton" data-key="${key}" title="Delete">&#128465;</button>
         </div>
       `;
@@ -56,6 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
       navigator.clipboard.writeText(value).then(() => {
         const textItem = event.target.closest(".textItem");
         textItem.classList.add("copied");
+        
+        // Update lastUsed timestamp
+        const key = event.target.textContent;
+        if (texts[key]) {
+          texts[key].lastUsed = new Date().toISOString();
+          chrome.storage.sync.set({ texts });
+        }
+        
         setTimeout(() => {
           textItem.classList.remove("copied");
         }, 1000);

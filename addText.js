@@ -8,10 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const key = keyInput.value.trim();
     const value = valueInput.value.trim();
     if (key && value) {
-      chrome.storage.sync.get(["texts"], (result) => {
+      chrome.storage.sync.get(["texts", "textPositions", "order"], (result) => {
         const texts = result.texts || {};
-        texts[key] = value;
-        chrome.storage.sync.set({ texts }, () => {
+        const textPositions = result.textPositions || {};
+        const order = result.order || [];
+        
+        // Store the text with additional metadata
+        texts[key] = {
+          value: value,
+          createdAt: new Date().toISOString(),
+          lastUsed: new Date().toISOString()
+        };
+
+        // Initialize position tracking for this text
+        textPositions[key] = {
+          lastPosition: null,
+          history: []
+        };
+
+        // Add the new key to the order array
+        order.push(key);
+
+        chrome.storage.sync.set({ texts, textPositions, order }, () => {
           alert("Text added successfully!");
           keyInput.value = "";
           valueInput.value = "";
